@@ -26,7 +26,7 @@ def main(dataRootPath, savePath):
                         BBox = [int(words[2]), int(words[3]), int(words[4]), int(words[5])]
                         cap.set(cv2.CAP_PROP_POS_FRAMES, frameOrd)
                         res, frame = cap.read()
-                        savePathNew = savePath + '/{}_imgs/{}'.format(SName, IDName)
+                        savePathNew = savePath + '/' + dataName + '/{}_imgs/{}'.format(SName, IDName)
                         if not os.path.exists(savePathNew):
                             os.makedirs(savePathNew)
                         saveName = 'c0{}_{}_{}.jpg'.format(int(CName.replace('c', '')), IDName, frameOrd + 1)   # c[camID]_[ID]_[frame].jpg
