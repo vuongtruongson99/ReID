@@ -1,0 +1,9 @@
+logs/
+*/__pycache__
+/.idea/
+*.pyc
+data/
+pretrained/
+
+# except name of folder
+!logs/.gitkeep
