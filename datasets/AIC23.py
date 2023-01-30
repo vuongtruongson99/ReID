@@ -16,24 +16,41 @@ class AIC23(BaseImageDataset):
         self.dataset_dir = root + '/' + self.dataset_dir
         
         self.train_dir = self.dataset_dir + '/image_train'
+        self.query_dir = self.dataset_dir + '/image_query'
 
         self._check_before_run()
 
-        train = self._process_dir(self.train_dir, relabel=True)
+        train = self._process_dir(self.train_dir, relabel=True, query=False)
+        query = self._process_dir(self.query_dir, relabel=False, query=True)
+        gallery = query
+
+        if verbose:
+            print("AIC23 loaded")
+            self.print_dataset_statistics(train, query, gallery)
+
         self.train = train
-        self.num_train_pids, self.num_train_imgs, self.num_train_cams = self.get_imagedata_info(self.train)
+        self.query = query
+        self.gallery = query
         
-        self.query = self.train
-        self.gallery = self.train
+        self.num_train_pids, self.num_train_imgs, self.num_train_cams = self.get_imagedata_info(self.train)
+        self.num_query_pids, self.num_query_imgs, self.num_query_cams = self.get_imagedata_info(self.query)
+        # self.query = self.train
+        # self.gallery = self.train
     
     def _check_before_run(self):
         if not osp.exists(self.dataset_dir):
             raise RuntimeError("'{}' is not available".format(self.dataset_dir))
         if not osp.exists(self.train_dir):
             raise RuntimeError("'{}' is not available".format(self.train_dir))
+        if not osp.exists(self.query_dir):
+            raise RuntimeError("'{}' is not available".format(self.query_dir))
 
-    def _process_dir(self, dir_path, relabel=False, if_track=False):
-        xml_dir = self.dataset_dir + '/train_label.xml'
+    def _process_dir(self, dir_path, relabel=False, query=False, if_track=False):
+        if query:
+            xml_dir = self.dataset_dir + '/query_label.xml'
+        else:
+            xml_dir = self.dataset_dir + '/train_label.xml'
+
         with open(xml_dir, 'r', encoding='utf-8') as f:
             datasource = f.read()
             f.close()

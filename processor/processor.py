@@ -220,3 +220,5 @@ def do_inference(cfg,
     _, _, distmat, pids, camids, qf, gf = evaluator.compute(fic=cfg.TEST.FIC, fac=cfg.TEST.FAC, rm_camera=cfg.TEST.RM_CAMERA,save_dir=cfg.OUTPUT_DIR, crop_test = cfg.TEST.CROP_TEST, la= cfg.TEST.LA)
     np.save(os.path.join(cfg.OUTPUT_DIR, cfg.TEST.DIST_MAT) , distmat)
     print('writing result to {}'.format(cfg.OUTPUT_DIR))
+
+# python test.py --config_file configs/stage1/resnext101_ibn_a.yml MODEL.DEVICE_ID "('0')" TEST.WEIGHT 'logs/stage1/resnext101a_384_AIC23/resnext101_ibn_a_10.pth' OUTPUT_DIR 'logs/stage1/'

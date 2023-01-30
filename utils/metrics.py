@@ -29,7 +29,7 @@ def cosine_similarity(qf, gf):
     dist_mat = np.arccos(dist_mat)
     return dist_mat
 
-
+# https://github.com/KaiyangZhou/deep-person-reid/issues/442
 def eval_func(distmat, q_pids, g_pids, q_camids, g_camids, max_rank=50):
     """Evaluation with market1501 metric
         Key: for each query identity, its gallery images from the same camera view are discarded.
@@ -110,9 +110,9 @@ class R1_mAP_eval():
     def update(self, output):   # Gọi mỗi lần cho mỗi batch
         feat, pid, camid, trackid = output
         self.feats.append(feat)
-        self.pids.append(np.asarray(pid))
-        self.camids.append(np.asarray(camid))
-        self.tids.append(np.asarray(trackid))
+        self.pids.extend(np.asarray(pid))
+        self.camids.extend(np.asarray(camid))
+        self.tids.extend(np.asarray(trackid))
         self.unique_tids = list(set(self.tids))
     
     def track_ranking(self, qf, gf, gallery_tids, unique_tids, fic=False):
@@ -142,9 +142,10 @@ class R1_mAP_eval():
         track_gf = torch.cat(track_gf)
         origin_track_dist = re_ranking(qf, track_gf, k1=7, k2=2, lambda_value=0.6)
         
-        cam_dist = np.load('./track_cam_rk.npy')
-        view_dist = np.load('./track_view_rk.npy')
-        track_dist = origin_track_dist - 0.1* cam_dist - 0.05*view_dist
+        # cam_dist = np.load('./track_cam_rk.npy')
+        # view_dist = np.load('./track_view_rk.npy')
+        # track_dist = origin_track_dist - 0.1* cam_dist - 0.05*view_dist
+        track_dist = origin_track_dist
         
         for i, tid in enumerate(gf_tids):
             dist[:, gallery_tids == tid] = track_dist[:, i:(i + 1)]

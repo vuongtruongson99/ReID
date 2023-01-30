@@ -49,9 +49,9 @@ class BaseImageDataset(BaseDataset):
         logger.info("  ----------------------------------------")
         logger.info("  subset   | # ids | # images | # cameras")
         logger.info("  ----------------------------------------")
-        logger.info("  train    | {:5d} | {:8d}    | {:9d}".format(num_train_pids, num_train_imgs, num_train_cams))
-        logger.info("  query    | {:5d} | {:8d}    | {:9d}".format(num_query_pids, num_query_imgs, num_query_cams))
-        logger.info("  gallery  | {:5d} | {:8d}    | {:9d}".format(num_gallery_pids, num_gallery_imgs, num_gallery_cams))
+        logger.info("  train    | {:5d} | {:8d} | {:9d}".format(num_train_pids, num_train_imgs, num_train_cams))
+        logger.info("  query    | {:5d} | {:8d} | {:9d}".format(num_query_pids, num_query_imgs, num_query_cams))
+        logger.info("  gallery  | {:5d} | {:8d} | {:9d}".format(num_gallery_pids, num_gallery_imgs, num_gallery_cams))
         logger.info("  ----------------------------------------")
 
 class ImageDataset(Dataset):
