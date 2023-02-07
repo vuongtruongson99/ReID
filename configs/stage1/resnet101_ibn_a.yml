@@ -1,7 +1,7 @@
 MODEL:
-    NAME: 'resnext101_ibn_a'
+    NAME: 'resnet101_ibn_a'
     DEVICE_ID: ('0')
-    PRETRAIN_PATH: './pretrained/resnext101_ibn_a-6ace051d.pth'
+    PRETRAIN_PATH: './pretrained/resnet101_ibn_a-59ea0ac6.pth'
     PRETRAIN_CHOICE: 'imagenet'
     METRIC_LOSS_TYPE: 'triplet'
     IF_WITH_CENTER: 'no'
@@ -33,7 +33,7 @@ SOLVER:
     WARMUP_FACTOR: 0.01
     WARMUP_EPOCHS: 10
     WARMUP_METHOD: 'linear'
-    LARGE_FC_LR: False
+    LARGE_FC_LR: True
     CHECKPOINT_PERIOD: 10
     LOG_PERIOD: 200
     EVAL_PERIOD: 10000
@@ -43,10 +43,10 @@ TEST:
     IMS_PER_BATCH: 128
     RE_RANKING: False
     RE_RANKING_TRACK: True
-    WEIGHT: './logs/stage1/resnext101a_384_AIC23/resnext101_ibn_a_80.pth'
+    WEIGHT: './logs/stage1/resnet101a_384_AIC23/resnet101_ibn_a_80.pth'
     NECK_FEAT: 'after'
     FEAT_NORM: 'yes'
     FLIP_FEATS: 'on'
     EVAL: True
     FIC: True
-OUTPUT_DIR: './logs/stage1/resnext101a_384_AIC23'
+OUTPUT_DIR: './logs/stage1/resnet101a_384_AIC23'
